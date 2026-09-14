@@ -1,0 +1,272 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: false;
+  logs: false;
+}
+
+/* ==========================================================================
+   Clinic light theme - the default.
+
+   The palette is a single calm teal ramp (care, cleanliness) with one warm
+   accent for anything that asks for attention. Status colors are reserved:
+   success / warning / error only ever mean state, never decoration, and they
+   always ship beside an icon and a word so state is never colour alone.
+   ========================================================================== */
+@plugin "daisyui/theme" {
+  name: "clinic";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: oklch(99.2% 0.004 172);
+  --color-base-200: oklch(96.6% 0.011 174);
+  --color-base-300: oklch(92.4% 0.019 176);
+  --color-base-content: oklch(27% 0.035 179);
+
+  --color-primary: oklch(52% 0.098 180);
+  --color-primary-content: oklch(98.5% 0.012 180);
+  --color-secondary: oklch(58% 0.086 218);
+  --color-secondary-content: oklch(98.5% 0.01 218);
+  --color-accent: oklch(72% 0.145 62);
+  --color-accent-content: oklch(24% 0.05 62);
+  --color-neutral: oklch(34% 0.026 180);
+  --color-neutral-content: oklch(97% 0.008 180);
+
+  --color-info: oklch(62% 0.104 232);
+  --color-info-content: oklch(98% 0.01 232);
+  --color-success: oklch(60% 0.116 156);
+  --color-success-content: oklch(98% 0.012 156);
+  --color-warning: oklch(75% 0.145 76);
+  --color-warning-content: oklch(26% 0.05 76);
+  --color-error: oklch(56% 0.176 22);
+  --color-error-content: oklch(98% 0.014 22);
+
+  --radius-selector: 1rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.28rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* ==========================================================================
+   Clinic dark theme.
+
+   Deliberately re-stepped from the same ramps against a dark surface rather
+   than flipped, so contrast and chroma survive the switch.
+   ========================================================================== */
+@plugin "daisyui/theme" {
+  name: "clinicnight";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: oklch(20.5% 0.021 187);
+  --color-base-200: oklch(17.6% 0.019 187);
+  --color-base-300: oklch(26.5% 0.026 187);
+  --color-base-content: oklch(93% 0.014 180);
+
+  --color-primary: oklch(76% 0.108 178);
+  --color-primary-content: oklch(19% 0.03 178);
+  --color-secondary: oklch(74% 0.084 220);
+  --color-secondary-content: oklch(18% 0.03 220);
+  --color-accent: oklch(80% 0.132 66);
+  --color-accent-content: oklch(21% 0.05 66);
+  --color-neutral: oklch(30% 0.024 187);
+  --color-neutral-content: oklch(94% 0.012 187);
+
+  --color-info: oklch(76% 0.092 232);
+  --color-info-content: oklch(18% 0.03 232);
+  --color-success: oklch(76% 0.108 158);
+  --color-success-content: oklch(18% 0.03 158);
+  --color-warning: oklch(82% 0.132 80);
+  --color-warning-content: oklch(22% 0.04 80);
+  --color-error: oklch(70% 0.152 22);
+  --color-error-content: oklch(18% 0.04 22);
+
+  --radius-selector: 1rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.28rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme inline {
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-base-200 text-base-content font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Every focus ring in the app comes from here, so keyboard users get the
+     same visible affordance on links, buttons, inputs and cards. */
+  :focus-visible {
+    @apply outline-primary outline-2 outline-offset-2;
+  }
+
+  /* Tabular figures belong in columns of numbers, never on a display value. */
+  th,
+  td {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    @apply bg-primary/20;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-base-200;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-base-300 rounded-full border-2 border-transparent bg-clip-content;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/40;
+  }
+}
+
+@layer components {
+  /* The soft raised surface used by every card in the app. daisyUI's depth is
+     switched off above so shadows stay consistent and intentional. */
+  .surface {
+    @apply bg-base-100 border-base-300/70 rounded-box border shadow-[0_1px_2px_rgba(16,61,57,0.04),0_12px_32px_-12px_rgba(16,61,57,0.10)];
+  }
+
+  .surface-quiet {
+    @apply bg-base-100/70 border-base-300/60 rounded-box border;
+  }
+
+  /* Editorial gradient wash for marketing sections and auth artwork. */
+  .aurora {
+    background-image:
+      radial-gradient(
+        ellipse 70% 55% at 12% 0%,
+        color-mix(in oklab, var(--color-primary) 22%, transparent),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 92% 12%,
+        color-mix(in oklab, var(--color-secondary) 20%, transparent),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 80% 60% at 50% 110%,
+        color-mix(in oklab, var(--color-accent) 14%, transparent),
+        transparent
+      );
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--color-base-content) 6%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--color-base-content) 6%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+  }
+
+  /* Values on stat tiles and hero figures keep proportional figures on
+     purpose: tabular digits make a number like 121 look loose at 48px. */
+  .figure-value {
+    font-variant-numeric: proportional-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .skeleton-line {
+    @apply bg-base-300/60 relative overflow-hidden rounded-md;
+  }
+  .skeleton-line::after {
+    @apply absolute inset-0 -translate-x-full;
+    content: "";
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-base-100) 60%, transparent),
+      transparent
+    );
+    animation: var(--animate-shimmer);
+  }
+}
+
+@layer utilities {
+  /* Hold the previous render at reduced opacity while refetching instead of
+     flashing a skeleton and jumping the layout. */
+  .is-refetching {
+    @apply pointer-events-none opacity-55 transition-opacity duration-200;
+  }
+
+  .text-balance-tight {
+    text-wrap: balance;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Respect a reduced-motion preference across every animated surface. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,21 @@
+# Keep the deployment bundle small and reproducible.
+# Anything listed here is never uploaded to Vercel.
+
+# Python
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+.mypy_cache
+
+# Local SQLite databases (the Vercel filesystem is read-only anyway)
+*.db
+
+# Frontend build artefacts and dependencies - Vercel installs and builds these
+frontend/node_modules
+frontend/.next
+
+# Tests are not needed at runtime
+tests

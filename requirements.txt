@@ -1,0 +1,10 @@
+# Python dependencies installed by @vercel/python for api/index.py.
+# Floors mirror the [project.dependencies] block in pyproject.toml.
+# fastapi[standard] is deliberately not used here: the serverless runtime
+# supplies the web server, so only the ASGI framework itself is needed.
+fastapi>=0.141.1
+uvicorn>=0.34.0
+sqlmodel>=0.0.42
+PyJWT>=2.13.0
+bcrypt>=5.0.0
+python-multipart>=0.0.32
