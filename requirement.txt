@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+PyJWT
+bcrypt
+python-multipart
